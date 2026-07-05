@@ -1,4 +1,4 @@
-name: iOS Tests
+name: iOS deploy
 
 on:
   push:
@@ -18,9 +18,10 @@ jobs:
         run: |
           xcodebuild test \
             -scheme GitHubActionsBootcamp \
-            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             CODE_SIGNING_ALLOWED=NO
   deploy:
+    needs: test
     runs-on: macos-latest
     steps:
       - name: Checkout code
