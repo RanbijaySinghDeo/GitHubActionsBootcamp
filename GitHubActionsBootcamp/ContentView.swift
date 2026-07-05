@@ -8,14 +8,38 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @State private var name: String = ""
+    @State private var message: String = ""
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+
+            Text("Simple Form")
+                .font(.title)
+
+            TextField("Enter your name", text: $name)
+                .textFieldStyle(.roundedBorder)
+
+            Button("Submit") {
+                if ContentView.isValidName(name) {
+                    message = "Welcome, \(name)!"
+                } else {
+                    message = "Name cannot be empty."
+                }
+            }
+            .buttonStyle(.borderedProminent)
+
+            Text(message)
+                .foregroundStyle(message.contains("Welcome") ? .green : .red)
+
+            Spacer()
         }
         .padding()
+    }
+
+    static func isValidName(_ name: String) -> Bool {
+        return !name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 }
 
