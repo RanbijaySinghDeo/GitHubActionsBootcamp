@@ -1,0 +1,22 @@
+name: iOS Tests
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Run Unit Tests
+        run: |
+          xcodebuild test \
+            -scheme GitHubActionsBootcamp \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO
